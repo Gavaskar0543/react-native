@@ -18,19 +18,24 @@ const SignupScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSignup = () => {
-    if (password !== confirmPassword) {
+    if(password === '' || confirmPassword === '' || username === ''){
+      Alert.alert('All fields are required*')
+    }
+   else if (password !== confirmPassword) {
       Alert.alert('Signup Failed', 'Passwords do not match');
     } else {
       // Replace this with your signup logic.
       Alert.alert('Signup Successful', 'Account created!');
+      navigation.navigate('Login'); // Navigate to the Login screen
+      
     }
-    navigation.navigate('Login'); // Navigate to the Login screen
+   
 
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Create Account</Text>
+      <Text style={styles.title}>Create Your Account &#x2B50; </Text>
       <TextInput
         style={styles.input}
         placeholder="Username"
@@ -66,6 +71,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
+    textAlign: 'center'
     
   },
   input: {
