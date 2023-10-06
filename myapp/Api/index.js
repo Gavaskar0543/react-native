@@ -1,28 +1,20 @@
-import { API_URLS } from "../utils/constants";
+import { API_URLS } from "../Utils/constant";
 
 const customFetch = async (url, { body, ...customConfig }) => {
-  // Headers
-  /* The `const headers` block is creating an object that represents the headers for the HTTP request.
-  It includes a default header `'Content-Type'` with the value
-  `'application/x-www-form-urlencoded'`. This header specifies the format of the data being sent in
-  the request body. */
+ 
+ 
   const headers = {
     'Content-Type': 'application/x-www-form-urlencoded', // Change to x-www-form-urlencoded
     ...customConfig.headers,
   };
 
- /* The `config` object is being created to store the configuration options for the HTTP request. It is
- a combination of the `customConfig` object passed as an argument to the `customFetch` function and
- the `headers` object. */
-  // Config
+
   const config = {
     ...customConfig,
     headers: headers,
   };
 
-  // Body
- /* The code block is responsible for converting the `body` object into a URL-encoded string and
- assigning it to the `config.body` property. */
+
   if (body) {
     const formData = new URLSearchParams();
     for (const key in body) {
@@ -41,9 +33,9 @@ const customFetch = async (url, { body, ...customConfig }) => {
       };
     }
 
-    throw new Error(data.message);
+    // throw new Error(data.message);
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     return {
       message: error.message,
       success: false,

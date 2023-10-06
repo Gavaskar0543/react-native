@@ -9,6 +9,7 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
+import { register } from '../Api';
 
 const SignupScreen = () => {
   const navigation = useNavigation(); // Access the navigation object
@@ -16,21 +17,18 @@ const SignupScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
-  const handleSignup = () => {
-    if(password === '' || confirmPassword === '' || username === ''){
-      Alert.alert('All fields are required*')
+  const handleSignup = async () => {
+    try {
+      const response = await register(username, password, confirmPassword);
+      if (response.success) {
+        Alert.alert('Account Created');
+        navigation.navigate('login');
+      } else {
+        Alert.alert('Something went wrong retry');
+      }
+    } catch (error) {
+      Alert.alert('Registration failed', error.message);
     }
-   else if (password !== confirmPassword) {
-      Alert.alert('Signup Failed', 'Passwords do not match');
-    } else {
-      // Replace this with your signup logic.
-      Alert.alert('Signup Successful', 'Account created!');
-      navigation.navigate('Login'); // Navigate to the Login screen
-      
-    }
-   
-
   };
 
   return (

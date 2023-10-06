@@ -7,21 +7,15 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
-
+import { useNavigation } from '@react-navigation/native';
 const LoginScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  let navigation = useNavigation;
 
   const handleLogin = () => {
     // Replace this with your authentication logic.
-    if(username === ' ' && password === ' '){
-      Alert.alert('all fileld are blank');
-    }
-   else if (username === 'user' && password === 'password') {
-      Alert.alert('Login Successful', 'Welcome, user!');
-    } else {
-      Alert.alert('Login Failed', 'Invalid username or password');
-    }
+  
   };
 
   return (
