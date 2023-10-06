@@ -30,7 +30,7 @@ const SignupScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Signup</Text>
+      <Text style={styles.title}>Create Account</Text>
       <TextInput
         style={styles.input}
         placeholder="Username"
@@ -51,7 +51,7 @@ const SignupScreen = () => {
         onChangeText={text => setConfirmPassword(text)}
         value={confirmPassword}
       />
-      <Button title="Signup" onPress={handleSignup} />
+      <Button title="Create" onPress={handleSignup} />
     </View>
   );
 };
@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
+    
   },
   input: {
     height: 40,
