@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-
+import axios from 'axios';
 import {
   View,
   Text,
@@ -9,7 +9,9 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
-import { register } from '../Api';
+import {customFetch} from  '../Api';
+import { API_URLS } from '../Utils/constant';
+
 
 const SignupScreen = () => {
   const navigation = useNavigation(); // Access the navigation object
@@ -18,18 +20,28 @@ const SignupScreen = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const handleSignup = async () => {
+     
     try {
-      const response = await register(username, password, confirmPassword);
-      if (response.success) {
-        Alert.alert('Account Created');
-        navigation.navigate('login');
-      } else {
-        Alert.alert('Something went wrong retry');
-      }
+      const response = await postData(username, password);
+      console.log(response.data);
     } catch (error) {
-      Alert.alert('Registration failed', error.message);
+      console.error(error);
     }
+
+
+    
   };
+ 
+
+const postData = async (email, password) => {
+  try {
+    const data = { email, password };
+    const response = await axios.post('https://example.com/api/data', data);
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   return (
     <View style={styles.container}>

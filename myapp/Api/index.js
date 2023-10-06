@@ -1,6 +1,6 @@
 import { API_URLS } from "../Utils/constant";
 
-const customFetch = async (url, { body, ...customConfig }) => {
+export const customFetch = async (url, { body, ...customConfig }) => {
  
  
   const headers = {
@@ -42,24 +42,5 @@ const customFetch = async (url, { body, ...customConfig }) => {
     };
   }
 };
-
-
-
-//create
-export const register = (n,p,cp) => {
-  return customFetch(API_URLS.createAccount(), {
-    method: 'POST',
-    body:{name:n,password:p,Confirmpassword:cp}
-  });
-};
-
-//login from db
-export const getIn = (n,p) => {
-    return customFetch(API_URLS.login(), {
-      method: 'POST',
-      body:{name:n,password:p}
-    });
-  };
-
 
 
