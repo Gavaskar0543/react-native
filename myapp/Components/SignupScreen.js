@@ -93,6 +93,9 @@ const SignupScreen = () => {
   
 
 //////////////////////////////////////
+const handleReg = () =>{
+  navigation.navigate('Login');
+}
 
   return (
     <View style={styles.container}>
@@ -118,6 +121,8 @@ const SignupScreen = () => {
         value={confirmPassword}
       />
       <Button title="Create" onPress={handleSignup} />
+      <Text style={styles.midOr}>or</Text>
+      <Button style={styles.btn} title="Login" onPress={handleReg} />
     </View>
   );
 };
@@ -142,6 +147,14 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     paddingLeft: 8,
   },
+  midOr:{
+    textAlign:"center",
+    fontSize:24
+  },
+  btn:{
+    backgroundColor:'gray',
+
+  }
 });
 
 export default SignupScreen;
