@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import axios from 'axios';
 import {
   View,
   Text,
@@ -9,8 +8,8 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
-import {customFetch} from  '../Api';
-import { API_URLS } from '../Utils/constant';
+import axios from 'axios'
+
 
 
 const SignupScreen = () => {
@@ -21,27 +20,79 @@ const SignupScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const handleSignup = async () => {
      
-    try {
-      const response = await postData(username, password);
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
+
+    const userData = {
+      name: username,
+      password: password,
+      Confirmpassword: confirmPassword, // Make sure this matches the password
+    };
+    
+    registerUser(userData)
+      .then((success) => {
+        if (success) {
+          console.log('Registration successful.');
+          Alert.alert('Account created')
+          // Redirect to a success page or perform other actions
+          navigation.navigate('Login');
+        } else {
+          console.log('Registration failed.');
+          Alert.alert('Something went wrong');
+          // Handle registration failure
+        }
+      });
 
 
     
   };
+  const registerUser = async (userData) => {
+    try {
+      const response = await axios.post('https://myappbackend.gavaskark.repl.co/user/newUser', userData);
+  
+      if (response.status === 200 && response.data.success) {
+        // Registration was successful
+        return true;
+      } else {
+        // Registration failed
+        return false;
+      }
+    } catch (error) {
+      // Handle network errors or server errors
+      console.error(error);
+      return false;
+    }
+  };
+  
  
+  
 
-const postData = async (email, password) => {
-  try {
-    const data = { email, password };
-    const response = await axios.post('https://example.com/api/data', data);
-    console.log(response.data);
-  } catch (error) {
-    console.error(error);
-  }
-};
+  
+  
+  /////////////////////////////////////
+  
+
+
+  const fetchBackendMessage = async () => {
+    try {
+      const response = await axios.get('https://myappbackend.gavaskark.repl.co/1');
+      
+      if (response.status === 200 && response.data.success) {
+        console.log('Success:', response.data.message);
+        // Handle the successful response here
+      } else {
+        console.log('Request failed:', response.data.message);
+        // Handle the failed response here
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+      // Handle network errors or other unexpected errors here
+    }
+  };
+  
+  // Call the function to fetch the backend message
+  fetchBackendMessage();
+  
+
+//////////////////////////////////////
 
   return (
     <View style={styles.container}>
